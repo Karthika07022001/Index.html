@@ -1,0 +1,173 @@
+State is data that belongs to a component and can change over time.
+When state changes, React re-renders the component automatically.
+
+Example of things stored in state:
+
+Counter value
+
+Input text
+
+Button on/off status
+
+2️⃣ Introducing useState
+
+useState is a React Hook that lets you add state to a function component.
+
+Basic Syntax
+const [stateValue, setStateValue] = useState(initialValue);
+
+
+stateValue → current value of state
+
+setStateValue → function to update state
+
+initialValue → starting value
+
+Example: Counter
+import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>
+        Increase
+      </button>
+    </div>
+  );
+}
+
+export default Counter;
+
+
+📌 What happens step by step?
+
+count starts at 0
+
+Button is clicked
+
+setCount(count + 1) updates state
+
+Component re-renders with new value
+
+3️⃣ What Are Events in React?
+
+Events are actions performed by users, such as:
+
+Clicking
+
+Typing
+
+Submitting a form
+
+Hovering
+
+React uses camelCase event names:
+
+onClick
+
+onChange
+
+onSubmit
+
+4️⃣ Event Handlers
+
+An event handler is a function that runs when an event occurs.
+
+Example: Button Click
+function ClickExample() {
+  function handleClick() {
+    alert("Button clicked!");
+  }
+
+  return <button onClick={handleClick}>Click Me</button>;
+}
+
+
+📌 Important Rules
+
+Pass the function reference, not a function call
+✅ onClick={handleClick}
+❌ onClick={handleClick()}
+
+5️⃣ Using State with Events
+
+Events are commonly used to update state.
+
+Example: Toggle Text
+import { useState } from "react";
+
+function Toggle() {
+  const [isOn, setIsOn] = useState(false);
+
+  return (
+    <button onClick={() => setIsOn(!isOn)}>
+      {isOn ? "ON" : "OFF"}
+    </button>
+  );
+}
+
+6️⃣ Handling Input Events (onChange)
+Example: Input Field
+import { useState } from "react";
+
+function InputExample() {
+  const [name, setName] = useState("");
+
+  function handleChange(event) {
+    setName(event.target.value);
+  }
+
+  return (
+    <div>
+      <input type="text" onChange={handleChange} />
+      <p>Hello, {name}</p>
+    </div>
+  );
+}
+
+7️⃣ What Are Synthetic Events?
+
+React uses Synthetic Events, which are:
+
+A wrapper around native browser events
+
+Work the same across all browsers
+
+More efficient and consistent
+
+📌 You don’t usually notice the difference — React handles it for you.
+
+Example: Synthetic Event in Action
+function EventExample(event) {
+  console.log(event);          // SyntheticEvent
+  console.log(event.target);   // DOM element
+}
+
+
+✔ Synthetic events behave like normal JS events
+✔ They have properties like target, type, preventDefault()
+
+8️⃣ Prevent Default Behavior
+Example: Form Submission
+function FormExample() {
+  function handleSubmit(event) {
+    event.preventDefault();
+    alert("Form submitted!");
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+9️⃣ Key Takeaways
+
+✅ useState manages changing data
+✅ Event handlers respond to user actions
+✅ Events update state → UI updates automatically
+✅ React uses Synthetic Events for consistency
